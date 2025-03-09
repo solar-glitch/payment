@@ -7,8 +7,8 @@ const app = express();
 app.use(bodyParser.json());
 
 const razorpay = new Razorpay({
-  key_id: 'rzp_live_h9mLEqH30kYNoo',
-  key_secret: 'XfB6pFmSrebTz3bZZPojUsnD'
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
 });
 
 app.post('/create-order', async (req, res) => {
@@ -27,7 +27,7 @@ app.post('/create-order', async (req, res) => {
 
 app.post('/verify-payment', (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
-  const hmac = crypto.createHmac('sha256', 'YOUR_KEY_SECRET');
+  const hmac = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET);
   hmac.update(razorpay_order_id + '|' + razorpay_payment_id);
   const generated_signature = hmac.digest('hex');
   if (generated_signature === razorpay_signature) {
