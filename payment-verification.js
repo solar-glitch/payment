@@ -30,12 +30,16 @@ app.post('/create-order', async (req, res) => {
   }
 });
 
+// Update the webhook route to handle webhook requests
 app.post('/verify-payment', (req, res) => {
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+  const webhookPayload = req.body.payload.payment.entity;
+  const { order_id, payment_id, signature } = webhookPayload;
+
   const hmac = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET);
-  hmac.update(razorpay_order_id + '|' + razorpay_payment_id);
+  hmac.update(order_id + '|' + payment_id);
   const generated_signature = hmac.digest('hex');
-  if (generated_signature === razorpay_signature) {
+
+  if (generated_signature === signature) {
     res.send('Payment verified');
   } else {
     res.status(400).send('Invalid signature');
