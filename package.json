@@ -8,11 +8,21 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
+    "axios": "^1.8.2",
     "body-parser": "^1.20.3",
     "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "razorpay": "^2.9.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solar-glitch/payment.git"
+  },
+  "bugs": {
+    "url": "https://github.com/solar-glitch/payment/issues"
+  },
+  "homepage": "https://github.com/solar-glitch/payment#readme",
+  "description": ""
 }
