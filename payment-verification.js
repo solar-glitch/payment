@@ -11,6 +11,11 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET
 });
 
+// Define a route for the root URL
+app.get('/', (req, res) => {
+  res.send('Welcome to the Payment Verification Service!');
+});
+
 app.post('/create-order', async (req, res) => {
   const options = {
     amount: req.body.amount * 100, // amount in the smallest currency unit
